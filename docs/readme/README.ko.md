@@ -4,7 +4,7 @@
 
 Prototype Harness는 단순한 UI 생성기가 아닙니다. 목표는 사용자가 머릿속으로 떠올린 모습과 실제 프로토타입 사이의 차이를 줄이는 것입니다. 이 하네스는 부족한 요구사항을 질문하고, 위험한 가정을 막고, 브리프가 확정된 뒤에만 프로토타입을 만들고, 반복 가능한 품질 게이트로 결과물을 평가하도록 설계됩니다.
 
-> 현재 상태: 설계 및 초기 부트스트랩 단계입니다. 이 저장소에는 운영 원칙, 평가 모델, 보안 게이트, 개인 제작 기록이 들어 있습니다. 구현은 프로토타입 생성기가 아니라 평가 시스템부터 시작합니다.
+> 현재 상태: 초기 구현 단계입니다. 이 저장소에는 운영 원칙, 평가 모델, 보안 게이트, 개인 제작 기록, 그리고 외부 의존성 없는 첫 평가 CLI가 들어 있습니다. 프로토타입 생성기는 아직 구현하지 않았습니다.
 
 ## 다른 언어
 
@@ -53,6 +53,33 @@ Prototype Harness는 단순한 UI 생성기가 아닙니다. 목표는 사용자
 
 자세한 내용은 [프로토타입 하네스 검증 체계](../prototype-harness-evaluation.md)를 참고하세요.
 
+## 빠른 시작
+
+테스트 실행:
+
+```bash
+npm test
+```
+
+보안 스캔 실행:
+
+```bash
+npm run security:scan
+```
+
+예제 평가 실행:
+
+```bash
+npm run evaluate -- examples/evaluation-run.valid.json
+```
+
+평가 CLI는 다음 파일을 생성합니다.
+
+```text
+runs/<runId>/evaluation-result.json
+runs/<runId>/evaluation-report.md
+```
+
 ## 보안 게이트
 
 이 저장소는 오픈소스 공개를 전제로 합니다. 민감 파일과 secret은 커밋하면 안 됩니다.
@@ -82,30 +109,42 @@ git config core.hooksPath .githooks
 
 ```text
 docs/
+  evaluation-system-implementation-plan.md
   prototype-harness-design.md
   prototype-harness-evaluation.md
   open-source-security.md
   readme/
+examples/
 packages/
   personal-trial-log/
 scripts/
   security-scan.sh
+src/
+  cli/
+  evaluation/
+test/
 ```
 
 ## 현재 범위
 
-다음 구현 마일스톤은 프로토타입 생성기가 아니라 평가 시스템입니다.
+현재 구현 마일스톤은 프로토타입 생성기가 아니라 평가 시스템입니다.
 
-첫 구현 순서:
+현재 구현된 것:
 
 1. `evaluation-schema`
 2. `requirement-gate`
 3. `score-calculator`
 4. `failure-classifier`
-5. `human-review-form`
-6. `run-report`
-7. `trend-summary`
-8. prototype generator
+5. `run-report`
+6. evaluation CLI
+
+다음 구현 순서:
+
+1. `human-review-form`
+2. `trend-summary`
+3. benchmark input runner
+4. prototype brief validator
+5. prototype generator
 
 ## 첫 버전에서 제외하는 것
 

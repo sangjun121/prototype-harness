@@ -4,7 +4,7 @@ An evaluation-first harness for turning clarified ideas into interactive prototy
 
 Prototype Harness is not intended to be a simple UI generator. Its goal is to reduce the gap between what a user imagines and what a prototype actually does. The harness is designed to ask for missing requirements, block unsafe assumptions, generate a prototype only after the brief is confirmed, and evaluate the result with repeatable quality gates.
 
-> Status: design and bootstrap stage. The repository currently contains the operating principles, evaluation model, security gate, and personal build notes. The implementation will start from the evaluation system before prototype generation.
+> Status: early implementation stage. The repository now includes the operating principles, evaluation model, security gate, personal build notes, and the first dependency-free evaluation CLI. Prototype generation has not started yet.
 
 ## Languages
 
@@ -17,6 +17,7 @@ Prototype Harness is not intended to be a simple UI generator. Its goal is to re
 - Do not assume implementation-impacting requirements.
 - Ask clarification questions until the required brief is confirmed.
 - Treat prototypes as learning instruments, not incomplete products.
+- Start from the most important hypothesis and valid user feedback.
 - Build interactive flows, not static landing pages.
 - Evaluate generated prototypes before expanding templates or features.
 - Keep security checks in the local workflow and CI.
@@ -53,6 +54,33 @@ The current evaluation model covers:
 
 See [Prototype Harness Evaluation](docs/prototype-harness-evaluation.md).
 
+## Quick Start
+
+Run the tests:
+
+```bash
+npm test
+```
+
+Run the security scan:
+
+```bash
+npm run security:scan
+```
+
+Evaluate an example run:
+
+```bash
+npm run evaluate -- examples/evaluation-run.valid.json
+```
+
+The evaluation CLI writes:
+
+```text
+runs/<runId>/evaluation-result.json
+runs/<runId>/evaluation-report.md
+```
+
 ## Security Gate
 
 This repository is intended to be open source. Sensitive files and secrets must not be committed.
@@ -82,30 +110,42 @@ See [Open Source Security](docs/open-source-security.md).
 
 ```text
 docs/
+  evaluation-system-implementation-plan.md
   prototype-harness-design.md
   prototype-harness-evaluation.md
   open-source-security.md
   readme/
+examples/
 packages/
   personal-trial-log/
 scripts/
   security-scan.sh
+src/
+  cli/
+  evaluation/
+test/
 ```
 
 ## Current Scope
 
-The next implementation milestone is the evaluation system, not the prototype generator.
+The current implementation milestone is the evaluation system, not the prototype generator.
 
-Planned first implementation order:
+Implemented so far:
 
 1. `evaluation-schema`
 2. `requirement-gate`
 3. `score-calculator`
 4. `failure-classifier`
-5. `human-review-form`
-6. `run-report`
-7. `trend-summary`
-8. prototype generator
+5. `run-report`
+6. evaluation CLI
+
+Next implementation order:
+
+1. `human-review-form`
+2. `trend-summary`
+3. benchmark input runner
+4. prototype brief validator
+5. prototype generator
 
 ## Non-Goals for the First Version
 
@@ -121,6 +161,7 @@ Planned first implementation order:
 
 - [Design Document](docs/prototype-harness-design.md)
 - [Evaluation Model](docs/prototype-harness-evaluation.md)
+- [Prototyping Principles](docs/prototyping-principles.md)
 - [Open Source Security](docs/open-source-security.md)
 - [Personal Build Log](packages/personal-trial-log/README.md)
 

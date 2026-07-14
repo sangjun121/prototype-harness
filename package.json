@@ -1,0 +1,15 @@
+{
+  "name": "prototype-harness",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Evaluation-first harness for turning clarified ideas into interactive prototypes.",
+  "scripts": {
+    "evaluate": "node src/cli/evaluate-run.js",
+    "test": "node --test",
+    "security:scan": "bash scripts/security-scan.sh"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

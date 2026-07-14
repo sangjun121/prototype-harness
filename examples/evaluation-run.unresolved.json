@@ -1,0 +1,44 @@
+{
+  "runId": "unresolved-demo",
+  "inputIdea": "A tool for tracking study records.",
+  "prototypeIntent": {
+    "primaryHypothesis": "Study members need a faster way to record weekly study outcomes.",
+    "minimumValidationMethod": "Clarification is required before selecting a prototype format.",
+    "prototypeFormat": "interactive-web",
+    "cheaperValidationConsidered": false,
+    "nextDecisionOptions": [
+      "validate-again"
+    ]
+  },
+  "requirements": {
+    "confirmed": [
+      "The user wants a study record tool."
+    ],
+    "unresolved": [
+      "Whether the tool is personal or shared is not confirmed.",
+      "The primary device is not confirmed."
+    ],
+    "clarificationQuestions": [
+      "Is this personal or shared?",
+      "Is the first prototype mobile-first or desktop-first?"
+    ],
+    "delegatedDecisions": []
+  },
+  "checks": {
+    "buildPassed": true,
+    "coreFlowPassed": true,
+    "securityScanPassed": true,
+    "deadCtaCount": 0,
+    "stateChangePassed": true,
+    "consoleErrorCount": 0,
+    "layoutIssueCount": 0
+  },
+  "humanReview": {
+    "intentMatchScore": 4,
+    "coreIdeaReflectedScore": 4,
+    "feedbackSpecificityScore": 4,
+    "firstScreenActionClarityScore": 4,
+    "informationStructureScore": 4,
+    "dummyDataRealismScore": 4
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "runId": "study-log-v1",
+  "date": "2026-07-09T00:00:00.000Z",
+  "inputIdea": "A tool for study members to record weekly learning, questions, and next actions.",
+  "prototypeIntent": {
+    "primaryHypothesis": "Study members will record weekly learning more consistently if the record flow takes less than three minutes.",
+    "minimumValidationMethod": "Interactive web prototype with realistic dummy weekly study records.",
+    "prototypeFormat": "interactive-web",
+    "cheaperValidationConsidered": true,
+    "nextDecisionOptions": [
+      "keep",
+      "revise",
+      "discard",
+      "validate-again"
+    ]
+  },
+  "requirements": {
+    "confirmed": [
+      "The prototype is for a team study group.",
+      "The first version focuses on record creation, list review, detail review, and action item checks.",
+      "The prototype can use realistic dummy data.",
+      "Actual authentication and sharing links are out of scope."
+    ],
+    "unresolved": [],
+    "clarificationQuestions": [
+      "Is this for personal records or team sharing?",
+      "What must be included in each record?",
+      "Which flow should the first prototype validate?"
+    ],
+    "delegatedDecisions": []
+  },
+  "checks": {
+    "buildPassed": true,
+    "coreFlowPassed": true,
+    "securityScanPassed": true,
+    "deadCtaCount": 0,
+    "stateChangePassed": true,
+    "consoleErrorCount": 0,
+    "layoutIssueCount": 0
+  },
+  "humanReview": {
+    "intentMatchScore": 4.4,
+    "coreIdeaReflectedScore": 4.2,
+    "feedbackSpecificityScore": 4.1,
+    "firstScreenActionClarityScore": 4.3,
+    "informationStructureScore": 4.0,
+    "dummyDataRealismScore": 4.2
+  },
+  "metrics": {
+    "questionCount": 3,
+    "unnecessaryQuestionCount": 0,
+    "missedCoreQuestionCount": 0,
+    "timeToFirstPrototypeMinutes": 25,
+    "timeToRevisionMinutes": 15
+  },
+  "feedback": {
+    "items": [
+      {
+        "text": "The list should show action item completion status.",
+        "category": "information",
+        "actionable": true
+      },
+      {
+        "text": "The record form feels short enough for weekly use.",
+        "category": "flow",
+        "actionable": true
+      }
+    ]
+  }
+}
