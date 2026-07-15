@@ -40,5 +40,18 @@
     "firstScreenActionClarityScore": 4,
     "informationStructureScore": 4,
     "dummyDataRealismScore": 4
+  },
+  "interview": {
+    "plannedQuestions": [],
+    "futureIntentQuestionCount": 1,
+    "leadingQuestionCount": 0,
+    "evidence": {
+      "interviewCount": 0,
+      "pastBehaviorExampleCount": 0,
+      "recentStoryCount": 0,
+      "futureOpinionAnswerCount": 1,
+      "praiseOnlyFeedbackCount": 1,
+      "actionableObservationCount": 0
+    }
   }
 }

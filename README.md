@@ -68,17 +68,39 @@ Run the security scan:
 npm run security:scan
 ```
 
+Run intake on an incomplete idea:
+
+```bash
+npm run intake -- examples/intake-session.incomplete.json
+```
+
+Run intake on a complete brief:
+
+```bash
+npm run intake -- examples/intake-session.complete.json
+```
+
+Generate an interview guide:
+
+```bash
+npm run interview:guide -- examples/evaluation-run.valid.json
+```
+
 Evaluate an example run:
 
 ```bash
 npm run evaluate -- examples/evaluation-run.valid.json
 ```
 
-The evaluation CLI writes:
+The intake and evaluation CLIs write:
 
 ```text
 runs/<runId>/evaluation-result.json
 runs/<runId>/evaluation-report.md
+runs/<sessionId>/intake-result.json
+runs/<sessionId>/intake-report.md
+runs/<runId>/interview-guide.json
+runs/<runId>/interview-guide.md
 ```
 
 ## Security Gate
@@ -138,14 +160,19 @@ Implemented so far:
 4. `failure-classifier`
 5. `run-report`
 6. evaluation CLI
+7. `intake-session`
+8. intake CLI
+9. interview guide generator
+10. interview evidence gate
 
 Next implementation order:
 
-1. `human-review-form`
-2. `trend-summary`
-3. benchmark input runner
-4. prototype brief validator
-5. prototype generator
+1. prototype brief validator
+2. feedback evidence schema
+3. human-review-form
+4. trend-summary
+5. benchmark input runner
+6. prototype generator
 
 ## Non-Goals for the First Version
 

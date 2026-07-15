@@ -53,6 +53,32 @@
     "timeToFirstPrototypeMinutes": 25,
     "timeToRevisionMinutes": 15
   },
+  "interview": {
+    "plannedQuestions": [
+      {
+        "type": "past-behavior",
+        "text": "When was the most recent time you forgot to record weekly study learning?"
+      },
+      {
+        "type": "recent-story",
+        "text": "Walk me through that specific study day from beginning to end."
+      },
+      {
+        "type": "prototype-reaction",
+        "text": "While using this prototype, where did you hesitate?"
+      }
+    ],
+    "futureIntentQuestionCount": 0,
+    "leadingQuestionCount": 0,
+    "evidence": {
+      "interviewCount": 3,
+      "pastBehaviorExampleCount": 3,
+      "recentStoryCount": 2,
+      "futureOpinionAnswerCount": 0,
+      "praiseOnlyFeedbackCount": 0,
+      "actionableObservationCount": 3
+    }
+  },
   "feedback": {
     "items": [
       {

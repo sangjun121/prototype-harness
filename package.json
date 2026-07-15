@@ -5,6 +5,8 @@
   "type": "module",
   "description": "Evaluation-first harness for turning clarified ideas into interactive prototypes.",
   "scripts": {
+    "intake": "node src/cli/intake-run.js",
+    "interview:guide": "node src/cli/interview-guide.js",
     "evaluate": "node src/cli/evaluate-run.js",
     "test": "node --test",
     "security:scan": "bash scripts/security-scan.sh"

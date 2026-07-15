@@ -1,0 +1,8 @@
+{
+  "sessionId": "study-log-intake-incomplete",
+  "inputIdea": "Build an app for study members to record what they learned.",
+  "answers": {
+    "targetUser": "Small peer study groups",
+    "painPoint": "Members forget to record what they learned after each session."
+  }
+}

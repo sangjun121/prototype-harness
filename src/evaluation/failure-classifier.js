@@ -1,6 +1,6 @@
 import { FAILURE_TYPES } from "./schema.js";
 
-export function classifyFailures(input, gate, intentGate, score) {
+export function classifyFailures(input, gate, intentGate, interviewGate, score) {
   const failures = [];
 
   if (!gate.passed) {
@@ -9,6 +9,28 @@ export function classifyFailures(input, gate, intentGate, score) {
 
   if (!intentGate.passed) {
     failures.push(blocking(FAILURE_TYPES.prototypeIntent, "Prototype intent gate failed."));
+  }
+
+  if (!interviewGate.passed) {
+    failures.push(blocking(FAILURE_TYPES.interview, "Interview evidence gate failed."));
+  }
+
+  for (const failure of interviewGate.failures ?? []) {
+    if (failure.code === "FUTURE_INTENT_QUESTION" || failure.code === "TOO_MUCH_FUTURE_OPINION") {
+      failures.push(blocking(FAILURE_TYPES.futureOpinion, failure.message));
+    }
+
+    if (failure.code === "LEADING_QUESTION") {
+      failures.push(blocking(FAILURE_TYPES.leadingQuestion, failure.message));
+    }
+
+    if (
+      failure.code === "NO_PAST_BEHAVIOR_EVIDENCE" ||
+      failure.code === "NO_RECENT_STORY_EVIDENCE" ||
+      failure.code === "NO_ACTIONABLE_OBSERVATION"
+    ) {
+      failures.push(blocking(FAILURE_TYPES.interviewEvidence, failure.message));
+    }
   }
 
   if (input.checks?.securityScanPassed !== true) {

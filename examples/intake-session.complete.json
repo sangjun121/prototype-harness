@@ -1,0 +1,12 @@
+{
+  "sessionId": "study-log-intake-complete",
+  "inputIdea": "Build an app for study members to record what they learned.",
+  "answers": {
+    "targetUser": "Small peer study groups that meet weekly",
+    "painPoint": "Members forget to record what they learned after each session.",
+    "primaryHypothesis": "Members will record learning more consistently if the record flow takes under one minute.",
+    "successSignal": "At least two users can complete a realistic record without explanation and say what they would change.",
+    "minimumValidationMethod": "Let users try an interactive web prototype with realistic dummy study data.",
+    "prototypeFormat": "interactive-web"
+  }
+}

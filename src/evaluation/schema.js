@@ -10,6 +10,10 @@ export const SCORE_WEIGHTS = Object.freeze({
 export const FAILURE_TYPES = Object.freeze({
   requirement: "RequirementFailure",
   prototypeIntent: "PrototypeIntentFailure",
+  interview: "InterviewFailure",
+  interviewEvidence: "InterviewEvidenceFailure",
+  futureOpinion: "FutureOpinionFailure",
+  leadingQuestion: "LeadingQuestionFailure",
   intent: "IntentFailure",
   flow: "FlowFailure",
   interaction: "InteractionFailure",
@@ -20,14 +24,20 @@ export const FAILURE_TYPES = Object.freeze({
   security: "SecurityFailure"
 });
 
-export function createEvaluationResult(input, gate, intentGate, score, failures) {
+export function createEvaluationResult(input, gate, intentGate, interviewGate, score, failures) {
   return {
     runId: input.runId,
     date: input.date ?? new Date().toISOString(),
     inputIdea: input.inputIdea,
-    passed: gate.passed && intentGate.passed && score.passed && failures.blockingFailures.length === 0,
+    passed:
+      gate.passed &&
+      intentGate.passed &&
+      interviewGate.passed &&
+      score.passed &&
+      failures.blockingFailures.length === 0,
     gate,
     intentGate,
+    interviewGate,
     score,
     failures,
     summary: {
@@ -36,13 +46,15 @@ export function createEvaluationResult(input, gate, intentGate, score, failures)
       buildPassed: Boolean(input.checks?.buildPassed),
       coreFlowPassed: Boolean(input.checks?.coreFlowPassed),
       securityScanPassed: Boolean(input.checks?.securityScanPassed),
+      interviewEvidencePassed: interviewGate.passed,
       intentMatchScore: input.humanReview?.intentMatchScore ?? null,
       feedbackSpecificityScore: input.humanReview?.feedbackSpecificityScore ?? null,
       overallScore: score.total,
       grade: score.grade,
       majorFailureReason: failures.blockingFailures[0]?.type ?? null
     },
-    prototypeIntent: input.prototypeIntent ?? null
+    prototypeIntent: input.prototypeIntent ?? null,
+    interview: input.interview ?? null
   };
 }
 

@@ -44,6 +44,32 @@ const validInput = {
     unnecessaryQuestionCount: 0,
     missedCoreQuestionCount: 0
   },
+  interview: {
+    plannedQuestions: [
+      {
+        type: "past-behavior",
+        text: "When was the most recent time this happened?"
+      },
+      {
+        type: "recent-story",
+        text: "Walk me through that specific moment from beginning to end."
+      },
+      {
+        type: "prototype-reaction",
+        text: "Where did you hesitate while using the prototype?"
+      }
+    ],
+    futureIntentQuestionCount: 0,
+    leadingQuestionCount: 0,
+    evidence: {
+      interviewCount: 3,
+      pastBehaviorExampleCount: 3,
+      recentStoryCount: 2,
+      futureOpinionAnswerCount: 0,
+      praiseOnlyFeedbackCount: 0,
+      actionableObservationCount: 3
+    }
+  },
   feedback: {
     items: [{ text: "Show action item status in the list.", actionable: true }]
   }
@@ -121,6 +147,30 @@ test("technical failures are classified", () => {
   assert.equal(evaluation.result.passed, false);
   assert.ok(
     evaluation.result.failures.blockingFailures.some((failure) => failure.type === "TechnicalFailure")
+  );
+});
+
+test("interview evidence gate blocks future-opinion-heavy feedback", () => {
+  const evaluation = evaluateRun({
+    ...validInput,
+    runId: "future-opinion-feedback",
+    interview: {
+      ...validInput.interview,
+      futureIntentQuestionCount: 1,
+      evidence: {
+        ...validInput.interview.evidence,
+        pastBehaviorExampleCount: 0,
+        futureOpinionAnswerCount: 3
+      }
+    }
+  });
+
+  assert.equal(evaluation.result.passed, false);
+  assert.equal(evaluation.result.interviewGate.passed, false);
+  assert.ok(
+    evaluation.result.failures.blockingFailures.some(
+      (failure) => failure.type === "FutureOpinionFailure"
+    )
   );
 });
 

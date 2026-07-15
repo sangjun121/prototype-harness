@@ -1,11 +1,11 @@
 import { SCORE_WEIGHTS, isScore } from "./schema.js";
 
-export function calculateScore(input, gate, intentGate) {
+export function calculateScore(input, gate, intentGate, interviewGate) {
   const sections = {
     requirementQuality: scoreRequirementQuality(input, gate, intentGate),
     intentMatch: scoreIntentMatch(input),
     coreFlow: scoreCoreFlow(input),
-    feedbackQuality: scoreFeedbackQuality(input),
+    feedbackQuality: scoreFeedbackQuality(input, interviewGate),
     visualInformationQuality: scoreVisualInformationQuality(input),
     technicalQuality: scoreTechnicalQuality(input)
   };
@@ -23,6 +23,7 @@ export function calculateScore(input, gate, intentGate) {
     total >= 80 &&
     gate.passed &&
     intentGate.passed &&
+    interviewGate.passed &&
     input.checks?.buildPassed === true &&
     input.checks?.coreFlowPassed === true &&
     input.checks?.securityScanPassed === true &&
@@ -40,6 +41,7 @@ export function calculateScore(input, gate, intentGate) {
       securityScanPassed: input.checks?.securityScanPassed === true,
       noUnresolvedRequirements: gate.unresolvedRequirementCount === 0,
       prototypeIntentPassed: intentGate.passed,
+      interviewEvidencePassed: interviewGate.passed,
       intentMatchAtLeast4: intentAverage >= 4
     }
   };
@@ -97,12 +99,19 @@ function scoreCoreFlow(input) {
   return section(clamp(score, 0, SCORE_WEIGHTS.coreFlow), "Core flow completion.");
 }
 
-function scoreFeedbackQuality(input) {
+function scoreFeedbackQuality(input, interviewGate) {
   const reviewScore = input.humanReview?.feedbackSpecificityScore;
   const feedbackItems = input.feedback?.items ?? [];
 
   if (isScore(reviewScore)) {
-    return weightedScore(reviewScore, SCORE_WEIGHTS.feedbackQuality, "Feedback specificity.");
+    const base = weightedScore(reviewScore, SCORE_WEIGHTS.feedbackQuality, "Feedback specificity.");
+    const penalty = interviewGate.passed ? 0 : 6;
+    return section(
+      clamp(base.score - penalty, 0, SCORE_WEIGHTS.feedbackQuality),
+      interviewGate.passed
+        ? "Feedback specificity with interview evidence."
+        : "Feedback specificity penalized because interview evidence gate failed."
+    );
   }
 
   if (feedbackItems.length === 0) {

@@ -63,10 +63,33 @@ ${Object.entries(result.score.sections)
 
 ${renderGateFailureList(result.intentGate.failures)}
 
+## Interview Evidence Gate
+
+- Passed: ${result.interviewGate.passed ? "yes" : "no"}
+- Planned questions: ${result.interviewGate.plannedQuestionCount}
+- Interviews: ${result.interviewGate.interviewCount}
+- Past behavior examples: ${result.interviewGate.pastBehaviorExampleCount}
+- Recent stories: ${result.interviewGate.recentStoryCount}
+- Future opinion answers: ${result.interviewGate.futureOpinionAnswerCount}
+- Praise-only feedback: ${result.interviewGate.praiseOnlyFeedbackCount}
+- Actionable observations: ${result.interviewGate.actionableObservationCount}
+
+${renderInterviewGateFailureList(result.interviewGate.failures)}
+
 ${renderFailureList("Blocking Failures", blocking)}
 
 ${renderFailureList("Non-Blocking Failures", nonBlocking)}
 `;
+}
+
+function renderInterviewGateFailureList(failures) {
+  if (failures.length === 0) {
+    return "Interview gate failures: none.\n";
+  }
+
+  return `Interview gate failures:\n\n${failures
+    .map((failure) => `- ${failure.code}: ${failure.message}`)
+    .join("\n")}\n`;
 }
 
 function renderFailureList(title, failures) {

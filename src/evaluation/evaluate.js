@@ -1,6 +1,7 @@
 import { validateEvaluationInput, createEvaluationResult } from "./schema.js";
 import { evaluateRequirementGate } from "./requirement-gate.js";
 import { evaluatePrototypeIntentGate } from "./prototype-intent-gate.js";
+import { evaluateInterviewEvidenceGate } from "../interview/evidence-gate.js";
 import { calculateScore } from "./score-calculator.js";
 import { classifyFailures } from "./failure-classifier.js";
 
@@ -16,11 +17,12 @@ export function evaluateRun(input) {
 
   const gate = evaluateRequirementGate(input);
   const intentGate = evaluatePrototypeIntentGate(input);
-  const score = calculateScore(input, gate, intentGate);
-  const failures = classifyFailures(input, gate, intentGate, score);
+  const interviewGate = evaluateInterviewEvidenceGate(input);
+  const score = calculateScore(input, gate, intentGate, interviewGate);
+  const failures = classifyFailures(input, gate, intentGate, interviewGate, score);
 
   return {
     ok: true,
-    result: createEvaluationResult(input, gate, intentGate, score, failures)
+    result: createEvaluationResult(input, gate, intentGate, interviewGate, score, failures)
   };
 }
